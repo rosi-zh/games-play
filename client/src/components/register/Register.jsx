@@ -9,13 +9,13 @@ export default function Register() {
                     <div className="brand-logo"></div>
                     <h1>Register</h1>
 
-                    <label for="email">Email:</label>
+                    <label htmlFor="email">Email:</label>
                     <input type="email" id="email" name="email" placeholder="maria@email.com" />
 
-                    <label for="register-password">Password:</label>
+                    <label htmlFor="register-password">Password:</label>
                     <input type="password" name="password" id="register-password" />
 
-                    <label for="confirm-password">Confirm Password:</label>
+                    <label htmlFor="confirm-password">Confirm Password:</label>
                     <input type="password" name="confirm-password" id="confirm-password" />
 
                     <input className="btn submit" type="submit" value="Register" />
