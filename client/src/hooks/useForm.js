@@ -10,7 +10,7 @@ export default function useForm(submitHandler, initialValues) {
         }))
     }
 
-    const onSubmit = (e, submitHandler) => {
+    const onSubmit = (e) => {
         e.preventDefault();
 
         submitHandler(values);
