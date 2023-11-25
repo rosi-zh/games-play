@@ -10,3 +10,8 @@ export const login = async (email, password) => {
 
     return result;
 }
+
+export const register = (email, password) => authService.post(`${baseUrl}/register`, {
+    email, 
+    password
+});
