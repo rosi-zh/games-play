@@ -5,47 +5,48 @@ import * as gameService from '../../services/gameService';
 import * as commentService from '../../services/commentService';
 import AuthContext from "../../contexts/authContext";
 import reducer from "./commentReducer";
+import useForm from "../../hooks/useForm";
 
 export default function GameDetails() {
     const { email } = useContext(AuthContext);
-    const { gameId } = useParams();
     const [game, setGame] = useState({});
     // const [comments, setComments] = useState([]);
     const [comments, dispatch] = useReducer(reducer, []);
-
+    const { gameId } = useParams();
+    
     useEffect(() => {
         gameService.getOne(gameId)
-            .then(setGame);
-
+        .then(setGame);
+        
         commentService.getAll(gameId)
-            .then(result => {
-                dispatch({
-                    type: 'GET_ALL_COMMENTS',
-                    payload: result,
-                });
+        .then(result => {
+            dispatch({
+                type: 'GET_ALL_COMMENTS',
+                payload: result,
             });
+        });
     }, [gameId]);
-
-    const addCommentHandler = async (e) => {
-        e.preventDefault();
-
-        const formData = new FormData(e.currentTarget);
-
+    
+    const addCommentHandler = async (values) => {
         const newComment = await commentService.create(
             gameId,
-            formData.get('comment')    
-        )
+            values.comment   
+            )
+            
+            newComment.owner = { email };
+            
+            // setComments(state => [...state, {...newComment, owner: { email }}]);
+            dispatch({
+                type: 'ADD_COMMENT',
+                payload: newComment
+            });
+        }
 
-        newComment.owner = { email };
-
-        // setComments(state => [...state, {...newComment, owner: { email }}]);
-        dispatch({
-            type: 'ADD_COMMENT',
-            payload: newComment
+        const { values, onChange, onSubmit } = useForm(addCommentHandler, {
+            comment: '',
         });
-    }
-
-    return (
+        
+        return (
         <section id="game-details">
             <h1>Game Details</h1>
             <div className="info-section">
@@ -85,8 +86,8 @@ export default function GameDetails() {
 
             <article className="create-comment">
                 <label>Add new comment:</label>
-                <form className="form" onSubmit={addCommentHandler}>
-                    <textarea name="comment" placeholder="Comment......"></textarea>
+                <form className="form" onSubmit={onSubmit}>
+                    <textarea name="comment" placeholder="Comment......" value={values.comment} onChange={onChange}></textarea>
                     <input className="btn submit" type="submit" value="Add Comment" />
                 </form>
             </article>
