@@ -1,5 +1,5 @@
-import * as gameService from '../../services/gameService';
 import { useNavigate } from 'react-router-dom';
+import * as gameService from '../../services/gameService';
 
 export default function GameCreate() {
     const navigate = useNavigate();
