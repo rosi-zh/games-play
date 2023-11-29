@@ -54,12 +54,10 @@ export default function GameDetails() {
                 payload: newComment
             });
         }
-        //TODO: temp solution for page reredering
-        const initialValues = useMemo(() => ({
-            comment: ''
-        }), [])
 
-        const { values, onChange, onSubmit } = useForm(addCommentHandler, initialValues);
+        const { values, onChange, onSubmit } = useForm(addCommentHandler, {
+            comment: ''
+        });
 
         return (
         <section id="game-details">
