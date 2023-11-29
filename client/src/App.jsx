@@ -13,6 +13,7 @@ import GameDetails from "./components/game-details/GameDetails";
 import Logout from "./components/logout/Logout";
 import GameEdit from "./components/game-edit/GameEdit";
 import ErrorBoundary from "./components/ErrorBoundary";
+import AuthGuard from "./guards/AuthGuard";
 
 function App() {
 
@@ -24,12 +25,15 @@ function App() {
                     <Routes>
                         <Route path={Path.Home} element={<Home />} />
                         <Route path="/games" element={<GameList />} />
-                        <Route path="/game-create" element={<GameCreate />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/games/:gameId" element={<GameDetails />} />
-                        <Route path="/games/:gameId/edit" element={<GameEdit />} />
-                        <Route path={Path.Logout} element={<Logout />} />
+
+                        <Route element={<AuthGuard />}>
+                            <Route path="/game-create" element={<GameCreate />} />
+                            <Route path="/games/:gameId/edit" element={<GameEdit />} />
+                            <Route path={Path.Logout} element={<Logout />} />
+                        </Route>
                     </Routes>
                 </div>
             </AuthProvider>

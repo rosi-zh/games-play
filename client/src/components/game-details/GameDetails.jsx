@@ -49,10 +49,6 @@ export default function GameDetails() {
         }), [])
 
         const { values, onChange, onSubmit } = useForm(addCommentHandler, initialValues);
-        
-        if (true) {
-            throw new Error('Game details error!');
-        }
 
         return (
         <section id="game-details">
