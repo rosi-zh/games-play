@@ -50,7 +50,7 @@ export default function GameDetails() {
 
         const { values, onChange, onSubmit } = useForm(addCommentHandler, initialValues);
         
-        if (Math.random < 0.5) {
+        if (true) {
             throw new Error('Game details error!');
         }
 
